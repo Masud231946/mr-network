@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR NETWORK | সিসিটিভি ও আইটি স্পেশালিস্ট | মদন পুর, নারায়ণগঞ্জ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Hind Siliguri', Roboto, sans-serif;
+        }
+
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #3b82f6;
+            --accent-light: #60a5fa;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --gold: #fbbf24;
+            --text-light: #f8fafc;
+            --text-dim: #94a3b8;
+            --text-dark: #334155;
+            --border-color: #334155;
+        }
+
+        body {
+            background: var(--primary);
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* সাইডবার স্টাইল */
+        .sidebar {
+            position: fixed;
+            left: -300px;
+            top: 0;
+            width: 300px;
+            height: 100%;
+            background: var(--secondary);
+            z-index: 2000;
+            transition: 0.3s;
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+            border-right: 2px solid var(--accent);
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header h3 {
+            color: var(--gold);
+            font-size: 20px;
+        }
+
+        .close-sidebar {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-sidebar:hover {
+            color: var(--gold);
+            transform: rotate(90deg);
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 15px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 15px;
+            background: var(--primary);
+            border-radius: 10px;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .sidebar-menu a:hover {
+            background: var(--accent);
+            transform: translateX(5px);
+            border-color: var(--gold);
+        }
+
+        .sidebar-menu a i {
+            width: 30px;
+            color: var(--gold);
+            font-size: 18px;
+        }
+
+        .sidebar-menu a:hover i {
+            color: white;
+        }
+
+        /* ফ্রি সাইট ভিজিট স্টিকার */
+        .free-site-visit {
+            background: linear-gradient(135deg, var(--success), #16a34a);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            text-align: center;
+            border: 2px dashed var(--gold);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .free-site-visit i {
+            font-size: 40px;
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .free-site-visit h4 {
+            font-size: 22px;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .free-site-visit p {
+            font-size: 14px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .visit-badge {
+            background: var(--gold);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 15px 0;
+            font-size: 16px;
+            border: 2px solid white;
+        }
+
+        /* সাইডবার কন্টাক্ট */
+        .sidebar-contact {
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        .sidebar-contact h4 {
+            color: var(--gold);
+            margin-bottom: 10px;
+        }
+
+        .sidebar-contact a {
+            display: block;
+            color: var(--text-light);
+            text-decoration: none;
+            margin: 8px 0;
+            padding: 8px;
+            background: var(--secondary);
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .sidebar-contact a:hover {
+            background: var(--accent);
+            transform: translateX(5px);
+        }
+
+        /* মেনু বাটন */
+        .menu-btn {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-btn:hover {
+            background: var(--gold);
+            transform: scale(1.1);
+        }
+
+        /* ওভারলে */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1500;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* ফ্রি সাইট ভিজিট সেকশন */
+        .free-visit-section {
+            background: linear-gradient(135deg, var(--secondary), #0a0f1a);
+            padding: 50px 30px;
+            border-radius: 30px;
+            margin: 40px 0;
+            text-align: center;
+            border: 3px solid var(--success);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .free-visit-section::before {
+            content: 'ফ্রি';
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .free-visit-section h2 {
+            color: var(--success);
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .free-visit-section p {
+            font-size: 18px;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .free-visit-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+        }
+
+        .free-visit-features span {
+            background: rgba(34, 197, 94, 0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .free-visit-features i {
+            margin-right: 8px;
+            color: var(--gold);
+        }
+
+        .free-visit-btn {
+            background: var(--success);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 2px solid var(--gold);
+        }
+
+        .free-visit-btn:hover {
+            background: #16a34a;
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(34, 197, 94, 0.4);
+        }
+
+        /* CCTV প্যাকেজ কার্ড */
+        .cctv-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .cctv-card {
+            background: var(--secondary);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cctv-card.popular {
+            border: 2px solid var(--gold);
+            transform: scale(1.05);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: -30px;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 5px 30px;
+            transform: rotate(45deg);
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .cctv-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--text-light);
+        }
+
+        .price {
+            font-size: 42px;
+            color: var(--accent);
+            font-weight: bold;
+            margin-bottom: 20px;
+            background: rgba(59, 130, 246, 0.1);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .price small {
+            font-size: 16px;
+            color: var(--text-dim);
+        }
+
+        .old-price {
+            font-size: 18px;
+            color: var(--text-dim);
+            text-decoration: line-through;
+            margin-bottom: 5px;
+        }
+
+        .cctv-features {
+            list-style: none;
+            margin: 25px 0;
+            text-align: left;
+        }
+
+        .cctv-features li {
+            margin: 12px 0;
+            color: var(--text-dim);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 16px;
+        }
+
+        .cctv-features i {
+            color: var(--success);
+            font-size: 16px;
+        }
+
+        .cctv-features .fa-hdd {
+            color: var(--accent);
+        }
+
+        .hdd-highlight {
+            background: rgba(59, 130, 246, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: var(--accent-light);
+            font-weight: bold;
+        }
+
+        .cctv-btn {
+            background: var(--accent);
+            border: none;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        .cctv-btn:hover {
+            background: #2563eb;
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* কন্টাক্ট সেকশন */
+        .contact-links {
+            margin: 40px 0;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--secondary);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            text-decoration: none;
+            color: var(--text-light);
+            border: 1px solid var(--border-color);
+            transition: 0.3s;
+        }
+
+        .contact-link:hover {
+            background: var(--primary);
+            border-color: var(--accent);
+            transform: scale(1.02);
+        }
+
+        .contact-link i {
+            font-size: 28px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .contact-link .fa-whatsapp { color: var(--success); }
+        .contact-link .fa-phone-alt { color: var(--accent); }
+        .contact-link .fa-envelope { color: var(--gold); }
+        .contact-link .fa-map-marker-alt { color: #ef4444; }
+
+        .link-content {
+            flex: 1;
+        }
+
+        .link-content h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .link-content p {
+            color: var(--text-dim);
+            font-size: 14px;
+        }
+
+        /* ফোন নম্বর হাইলাইট */
+        .phone-highlight {
+            background: linear-gradient(135deg, var(--accent), #2563eb);
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 20px 0;
+            font-size: 24px;
+            font-weight: bold;
+            border: 2px solid var(--gold);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px var(--accent); }
+            50% { box-shadow: 0 0 20px var(--accent); }
+            100% { box-shadow: 0 0 5px var(--accent); }
+        }
+
+        .whatsapp-highlight {
+            background: var(--success);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        /* হেডার */
+        header {
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), 
+                        url('https://images.unsplash.com/photo-1557597774-9d273605dfa9?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--accent);
+        }
+
+        .logo-box {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--accent), #1e40af);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.7);
+            animation: pulse 2s infinite;
+            border: 3px solid var(--gold);
+            position: relative;
+        }
+
+        .logo-box::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            border: 2px dashed var(--gold);
+            animation: rotate 10s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .logo-text .mr {
+            font-size: 28px;
+            font-weight: 800;
+            color: white;
+            letter-spacing: 2px;
+        }
+
+        .logo-text .network {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 3px;
+        }
+
+        .logo-text .est {
+            font-size: 10px;
+            color: #ccc;
+            margin-top: 2px;
+        }
+
+        header h1 {
+            font-size: 48px;
+            color: var(--accent);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        header h2 {
+            font-size: 24px;
+            color: var(--gold);
+            margin-bottom: 15px;
+        }
+
+        .address-header {
+            font-size: 18px;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin: 10px auto;
+            background: rgba(0,0,0,0.5);
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--accent);
+        }
+
+        /* স্ট্যাটস */
+        .stats {
+            background: linear-gradient(135deg, var(--accent), #2563eb);
+            color: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 20px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 28px;
+            font-weight: 800;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 50px 0 40px;
+            font-size: 32px;
+            color: var(--accent);
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: var(--gold);
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--secondary);
+            padding: 35px 25px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+
+        .card i {
+            font-size: 60px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .card:hover i {
+            color: var(--gold);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            padding: 60px 20px 30px;
+        }
+
+        footer {
+            background: var(--secondary);
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            transform: translateX(5px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-dim);
+        }
+
+        .floating-actions {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .float-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 24px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: 0.3s;
+            animation: float 2s infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .float-call {
+            background: var(--accent);
+        }
+
+        .float-wp {
+            background: var(--success);
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 32px; }
+            .sidebar { width: 280px; }
+            .phone-highlight { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- মেনু বাটন -->
+    <button class="menu-btn" id="menuBtn">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- সাইডবার মেনু -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-network-wired"></i> MR NETWORK</h3>
+            <button class="close-sidebar" id="closeSidebar">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <ul class="sidebar-menu">
+            <li><a href="#home"><i class="fas fa-home"></i> হোম</a></li>
+            <li><a href="#services"><i class="fas fa-cogs"></i> আমাদের সেবা</a></li>
+            <li><a href="#cctv-packages"><i class="fas fa-video"></i> CCTV প্যাকেজ</a></li>
+            <li><a href="#free-visit"><i class="fas fa-calendar-check"></i> ফ্রি সাইট ভিজিট</a></li>
+            <li><a href="#contact"><i class="fas fa-phone-alt"></i> যোগাযোগ</a></li>
+        </ul>
+
+        <!-- ফ্রি সাইট ভিজিট স্টিকার -->
+        <div class="free-site-visit">
+            <i class="fas fa-calendar-check"></i>
+            <h4>ফ্রি সাইট ভিজিট</h4>
+            <p>মদন পুর, বন্দর ও নারায়ণগঞ্জ এলাকায়</p>
+            <div class="visit-badge">
+                <i class="fas fa-tools"></i> সম্পূর্ণ বিনামূল্যে
+            </div>
+            <p style="font-size: 13px; margin-top: 10px;">কল করুন: 01315-027676</p>
+        </div>
+
+        <!-- সাইডবার কন্টাক্ট -->
+        <div class="sidebar-contact">
+            <h4>যোগাযোগ করুন</h4>
+            <a href="tel:+8801315027676"><i class="fas fa-phone-alt"></i> 01315-027676</a>
+            <a href="https://wa.me/8801315027676"><i class="fab fa-whatsapp"></i> 01315-027676 (হোয়াটসঅ্যাপ)</a>
+            <a href="mailto:masudrr231@gmail.com"><i class="fas fa-envelope"></i> masudrr231@gmail.com</a>
+            <div style="margin-top: 10px; font-size: 12px; color: var(--text-dim);">
+                <i class="fas fa-map-marker-alt"></i> মদন পুর, বন্দর, নারায়ণগঞ্জ - ১৪১১
+            </div>
+        </div>
+    </div>
+
+    <!-- ওভারলে -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- হেডার -->
+    <header id="home">
+        <div class="logo-box">
+            <div class="logo-text">
+                <span class="mr">MR</span>
+                <span class="network">NETWORK</span>
+                <span class="est">EST. 2015</span>
+            </div>
+        </div>
+        <h1>MR NETWORK</h1>
+        <h2>সিসিটিভি ও আইটি স্পেশালিস্ট</h2>
+        <div class="address-header">
+            <i class="fas fa-map-marker-alt"></i> মদন পুর, বন্দর, নারায়ণগঞ্জ, ঢাকা - ১৪১১
+        </div>
+        
+        <!-- ফোন নম্বর হাইলাইট -->
+        <div class="phone-highlight">
+            <i class="fas fa-phone-alt"></i> 01315-027676
+        </div>
+        <div class="whatsapp-highlight">
+            <i class="fab fa-whatsapp"></i> হোয়াটসঅ্যাপ: 01315-027676
+        </div>
+    </header>
+
+    <!-- স্ট্যাটস বার -->
+    <div class="stats">
+        <div class="stat-item">
+            <span class="stat-number">৫০০+</span>
+            <span class="stat-label">প্রজেক্ট সমাপ্ত</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">৩০০+</span>
+            <span class="stat-label">সন্তুষ্ট ক্লায়েন্ট</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">২৪/৭</span>
+            <span class="stat-label">সাপোর্ট</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number">৮+</span>
+            <span class="stat-label">বছরের অভিজ্ঞতা</span>
+        </div>
+    </div>
+
+    <!-- সার্ভিস সেকশন -->
+    <div class="container" id="services">
+        <h2 class="section-title">আমাদের সেবাসমূহ</h2>
+        
+        <div class="grid">
+            <div class="card">
+                <i class="fas fa-video"></i>
+                <h3>CCTV সিসটেম</h3>
+                <p>আধুনিক নিরাপত্তা ব্যবস্থা - মদন পুর, বন্দর ও নারায়ণগঞ্জে</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-globe"></i>
+                <h3>নেটওয়ার্কিং</h3>
+                <p>প্রফেশনাল নেটওয়ার্ক সেটআপ - কল করুন 01315-027676</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-laptop"></i>
+                <h3>কম্পিউটার সার্ভিসিং</h3>
+                <p>মেরামত ও আপগ্রেড - হোয়াটসঅ্যাপ: 01315-027676</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CCTV প্যাকেজ সেকশন (আপডেটেড দাম) -->
+    <div class="container" id="cctv-packages">
+        <h2 class="section-title">আমাদের CCTV প্যাকেজ</h2>
+        <p class="section-subtitle" style="text-align: center; color: var(--gold); margin-bottom: 30px;">
+            <i class="fas fa-hdd"></i> বিশেষ অফার: ৪ ক্যামেরায় ৫০০ জিবি এইচডিডি | ৮ ক্যামেরায় ১ টিবি এইচডিডি
+        </p>
+        
+        <div class="cctv-grid">
+            <!-- 4 ক্যামেরা প্যাকেজ - নতুন দাম ৯৮০০ টাকা, ইন্সটলেশন চার্জ আলাদা -->
+            <div class="cctv-card">
+                <h3><i class="fas fa-camera"></i> ৪ ক্যামেরা প্যাকেজ</h3>
+                <div class="old-price">সাধারণ মূল্য: ৮,৫০০ টাকা</div>
+                <div class="price">৯,৮০০ ৳ <small>মোট</small></div>
+                <ul class="cctv-features">
+                    <li><i class="fas fa-check-circle"></i> ৪টি এইচডি ক্যামেরা</li>
+                    <li><i class="fas fa-check-circle"></i> ৪ চ্যানেল ডিভিআর</li>
+                    <li><i class="fas fa-hdd"></i> <span class="hdd-highlight">৫০০ জিবি এইচডিডি</span></li>
+                    <li><i class="fas fa-wrench"></i> ইন্সটলেশন চার্জ আলাদা</li>
+                    <li><i class="fas fa-calendar-check"></i> ফ্রি সাইট ভিজিট</li>
+                </ul>
+                <button class="cctv-btn" onclick="window.location.href='#contact'">অর্ডার করুন</button>
+            </div>
+
+            <!-- 8 ক্যামেরা প্যাকেজ - নতুন দাম, ইন্সটলেশন চার্জ আলাদা -->
+            <div class="cctv-card popular">
+                <div class="popular-badge">জনপ্রিয়</div>
+                <h3><i class="fas fa-camera"></i> ৮ ক্যামেরা প্যাকেজ</h3>
+                <div class="price">১৭,৫০০ ৳ <small>মোট</small></div>
+                <ul class="cctv-features">
+                    <li><i class="fas fa-check-circle"></i> ৮টি এইচডি ক্যামেরা</li>
+                    <li><i class="fas fa-check-circle"></i> ৮ চ্যানেল স্মার্ট ডিভিআর</li>
+                    <li><i class="fas fa-hdd"></i> <span class="hdd-highlight">১ টিবি এইচডিডি</span></li>
+                    <li><i class="fas fa-wrench"></i> ইন্সটলেশন চার্জ আলাদা</li>
+                    <li><i class="fas fa-calendar-check"></i> ফ্রি সাইট ভিজিট</li>
+                    <li><i class="fas fa-check-circle"></i> রিমোট অ্যাক্সেস</li>
+                </ul>
+                <button class="cctv-btn" onclick="window.location.href='#contact'">অর্ডার করুন</button>
+            </div>
+
+            <!-- 16 ক্যামেরা প্যাকেজ -->
+            <div class="cctv-card">
+                <h3><i class="fas fa-camera"></i> ১৬ ক্যামেরা প্যাকেজ</h3>
+                <div class="price">২৮,৫০০ ৳ <small>মোট</small></div>
+                <ul class="cctv-features">
+                    <li><i class="fas fa-check-circle"></i> ১৬টি এইচডি ক্যামেরা</li>
+                    <li><i class="fas fa-check-circle"></i> ১৬ চ্যানেল এআই ডিভিআর</li>
+                    <li><i class="fas fa-hdd"></i> ২ টিবি এইচডিডি</li>
+                    <li><i class="fas fa-wrench"></i> ইন্সটলেশন চার্জ আলাদা</li>
+                    <li><i class="fas fa-calendar-check"></i> ফ্রি সাইট ভিজিট</li>
+                    <li><i class="fas fa-check-circle"></i> অ্যাডভান্স ফিচার</li>
+                </ul>
+                <button class="cctv-btn" onclick="window.location.href='#contact'">অর্ডার করুন</button>
+            </div>
+        </div>
+
+        <!-- এইচডিডি তথ্য ও ইন্সটলেশন তথ্য -->
+        <div style="background: linear-gradient(135deg, var(--accent), #1e40af); padding: 20px; border-radius: 15px; margin: 30px 0; text-align: center;">
+            <p style="font-size: 20px; font-weight: bold;">
+                <i class="fas fa-hdd"></i> স্পেশাল অফার: 
+                <span style="background: var(--gold); color: var(--primary); padding: 5px 15px; border-radius: 50px; margin: 0 10px;">৪ ক্যামেরা = ৫০০ জিবি</span>
+                <span style="background: var(--gold); color: var(--primary); padding: 5px 15px; border-radius: 50px;">৮ ক্যামেরা = ১ টিবি</span>
+            </p>
+            <p style="margin-top: 10px; color: white;">
+                <i class="fas fa-wrench"></i> ইন্সটলেশন চার্জ আলাদা (সাইট ভিজিটের পরে জানানো হবে)
+            </p>
+        </div>
+    </div>
+
+    <!-- ফ্রি সাইট ভিজিট সেকশন -->
+    <div class="container" id="free-visit">
+        <div class="free-visit-section">
+            <h2><i class="fas fa-calendar-check"></i> ফ্রি সাইট ভিজিট</h2>
+            <p>মদন পুর, বন্দর ও নারায়ণগঞ্জ এলাকায় সম্পূর্ণ বিনামূল্যে সাইট ভিজিট</p>
+            
+            <div class="free-visit-features">
+                <span><i class="fas fa-check-circle"></i> কোন চার্জ নেই</span>
+                <span><i class="fas fa-check-circle"></i> ফ্রি কোয়োটেশন</span>
+                <span><i class="fas fa-check-circle"></i> বিশেষজ্ঞ পরামর্শ</span>
+            </div>
+
+            <p style="margin: 20px 0; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px;">
+                <i class="fas fa-map-pin" style="color: var(--gold);"></i> 
+                মদন পুর, বন্দর, নারায়ণগঞ্জ (ডাক কোড: ১৪১১)
+            </p>
+
+            <p style="font-size: 20px; margin: 20px 0; color: var(--gold);">
+                <i class="fas fa-phone-alt"></i> আজই কল করুন: 01315-027676
+            </p>
+
+            <button class="free-visit-btn" onclick="window.location.href='#contact'">
+                <i class="fas fa-calendar-plus"></i> আজই বুকিং দিন
+            </button>
+
+            <p style="margin-top: 20px; font-size: 14px;">
+                <i class="fas fa-clock"></i> সকাল ৯টা - রাত ৮টা (শুক্রবার জরুরি সেবা)
+            </p>
+        </div>
+    </div>
+
+    <!-- কন্টাক্ট সেকশন -->
+    <div class="container" id="contact">
+        <h2 class="section-title">যোগাযোগ করুন</h2>
+        
+        <div class="contact-links">
+            <a href="tel:+8801315027676" class="contact-link">
+                <i class="fas fa-phone-alt"></i>
+                <div class="link-content">
+                    <h4>ফোন</h4>
+                    <p>01315-027676 (২৪/৭ সাপোর্ট)</p>
+                </div>
+            </a>
+            
+            <a href="https://wa.me/8801315027676" class="contact-link">
+                <i class="fab fa-whatsapp"></i>
+                <div class="link-content">
+                    <h4>হোয়াটসঅ্যাপ</h4>
+                    <p>01315-027676 (মেসেজ করুন)</p>
+                </div>
+            </a>
+            
+            <a href="mailto:masudrr231@gmail.com" class="contact-link">
+                <i class="fas fa-envelope"></i>
+                <div class="link-content">
+                    <h4>ইমেইল</h4>
+                    <p>masudrr231@gmail.com</p>
+                </div>
+            </a>
+            
+            <a href="#" class="contact-link">
+                <i class="fas fa-map-marker-alt"></i>
+                <div class="link-content">
+                    <h4>ঠিকানা</h4>
+                    <p>মদন পুর, বন্দর, নারায়ণগঞ্জ, ঢাকা - ১৪১১</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- কুইক কন্টাক্ট ফর্ম -->
+        <div style="background: var(--secondary); padding: 30px; border-radius: 20px; margin-top: 30px;">
+            <h3 style="text-align: center; color: var(--gold); margin-bottom: 20px;">
+                <i class="fas fa-calendar-check"></i> ফ্রি সাইট ভিজিটের জন্য আবেদন
+            </h3>
+            <form id="visitForm">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <input type="text" placeholder="আপনার নাম" style="padding: 12px; background: var(--primary); border: 1px solid var(--border-color); border-radius: 8px; color: white;">
+                    <input type="tel" placeholder="মোবাইল নম্বর" value="01315-027676" style="padding: 12px; background: var(--primary); border: 1px solid var(--border-color); border-radius: 8px; color: white;">
+                </div>
+                <div style="margin-top: 15px;">
+                    <input type="email" placeholder="ইমেইল (ঐচ্ছিক)" value="masudrr231@gmail.com" style="padding: 12px; background: var(--primary); border: 1px solid var(--border-color); border-radius: 8px; color: white; width: 100%;">
+                </div>
+                <div style="margin-top: 15px;">
+                    <textarea placeholder="আপনার ঠিকানা (মদন পুর/বন্দর/নারায়ণগঞ্জ)" style="padding: 12px; background: var(--primary); border: 1px solid var(--border-color); border-radius: 8px; color: white; width: 100%; height: 80px;"></textarea>
+                </div>
+                <button type="submit" style="background: var(--success); color: white; border: none; padding: 12px; border-radius: 8px; width: 100%; margin-top: 15px; font-weight: bold; font-size: 16px;">
+                    <i class="fas fa-paper-plane"></i> ফ্রি সাইট ভিজিটের জন্য আবেদন
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ফুটার -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>MR NETWORK</h3>
+                <p>মদন পুর, বন্দর, নারায়ণগঞ্জের বিশ্বস্ত আইটি পার্টনার</p>
+                <p><i class="fas fa-phone-alt"></i> 01315-027676</p>
+                <p><i class="fab fa-whatsapp"></i> 01315-027676 (হোয়াটসঅ্যাপ)</p>
+                <p><i class="fas fa-envelope"></i> masudrr231@gmail.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> মদন পুর, বন্দর, নারায়ণগঞ্জ - ১৪১১</p>
+            </div>
+            
+            <div>
+                <h3>দ্রুত লিংক</h3>
+                <ul class="footer-links">
+                    <li><a href="#home"><i class="fas fa-angle-right"></i> হোম</a></li>
+                    <li><a href="#cctv-packages"><i class="fas fa-angle-right"></i> CCTV প্যাকেজ</a></li>
+                    <li><a href="#free-visit"><i class="fas fa-angle-right"></i> ফ্রি সাইট ভিজিট</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3>সেবা এলাকা</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fas fa-angle-right"></i> মদন পুর</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> বন্দর</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> নারায়ণগঞ্জ</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; ২০২৪ MR NETWORK - মদন পুর, বন্দর, নারায়ণগঞ্জ (ডাক কোড: ১৪১১)</p>
+            <p>📞 01315-027676 | ✉️ masudrr231@gmail.com | 💬 হোয়াটসঅ্যাপ: 01315-027676</p>
+            <p style="margin-top: 5px; font-size: 14px; color: var(--gold);">📀 স্পেশাল অফার: ৪ ক্যামেরা = ৫০০ জিবি | ৮ ক্যামেরা = ১ টিবি</p>
+            <p style="font-size: 12px; color: var(--text-dim);"><i class="fas fa-wrench"></i> ইন্সটলেশন চার্জ আলাদা (ফ্রি সাইট ভিজিটের পরে জানানো হবে)</p>
+        </div>
+    </footer>
+
+    <!-- ফ্লোটিং বাটন -->
+    <div class="floating-actions">
+        <a href="tel:+8801315027676" class="float-btn float-call">
+            <i class="fas fa-phone-alt"></i>
+        </a>
+        <a href="https://wa.me/8801315027676" class="float-btn float-wp">
+            <i class="fab fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <script>
+        // সাইডবার কন্ট্রোল
+        const menuBtn = document.getElementById('menuBtn');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.getElementById('closeSidebar');
+        const overlay = document.getElementById('overlay');
+
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+
+        // ফর্ম সাবমিট
+        document.getElementById('visitForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('ধন্যবাদ! ফ্রি সাইট ভিজিটের জন্য আপনার আবেদন গৃহীত হয়েছে। আমরা খুব শীঘ্রই মদন পুর/বন্দর/নারায়ণগঞ্জ এলাকায় আপনার সাথে যোগাযোগ করব। ফোন: 01315-027676');
+            this.reset();
+        });
+
+        // সিসিটিভি বাটন এলার্ট
+        document.querySelectorAll('.cctv-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                alert('অর্ডার করার জন্য ধন্যবাদ! ফ্রি সাইট ভিজিটের মাধ্যমে আমাদের প্রতিনিধি আপনার সাথে যোগাযোগ করবে। ফোন: 01315-027676');
+            });
+        });
+
+        // স্মুথ স্ক্রল
+        document.querySelectorAll('.sidebar-menu a, .footer-links a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if(this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if(target) {
+                        target.scrollIntoView({behavior: 'smooth'});
+                        sidebar.classList.remove('active');
+                        overlay.classList.remove('active');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
